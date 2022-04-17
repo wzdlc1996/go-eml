@@ -63,3 +63,19 @@ var chsetMap = map[string]encoding.Encoding{
 	"gb18030": simplifiedchinese.GB18030,
 	"gbk":     simplifiedchinese.GBK,
 }
+
+// RemoveOutterQuotation removes the outside quotation of s. For example:
+// 1.  s == `"aaaa"` returns `aaaa`.
+// 2.  s == `"aaa` returns `aaa`.
+// 3.  s == `aaa` returns `aaa`
+func RemoveOutterQuotation(s string) string {
+	slen := len(s)
+	lind, rind := 0, slen-1
+	if s[lind] == 0x22 {
+		lind += 1
+	}
+	if s[rind] == 0x22 {
+		rind -= 1
+	}
+	return s[lind : rind+1]
+}

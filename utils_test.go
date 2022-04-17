@@ -22,3 +22,17 @@ func TestParseEncodedString(t *testing.T) {
 		t.Errorf("Error while parsing: %s\t%s", exmp, res)
 	}
 }
+
+func TestRemoveOutterQuotation(t *testing.T) {
+	var testPairs = map[string]string{
+		"\"abd\"": "abd",
+		"\"bda":   "bda",
+		"bda\"":   "bda",
+		"asdf":    "asdf",
+	}
+	for in, out := range testPairs {
+		if RemoveOutterQuotation(in) != out {
+			t.Errorf("Error in instance: in=%s\tout=%s", in, RemoveOutterQuotation(in))
+		}
+	}
+}

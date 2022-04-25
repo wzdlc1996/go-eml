@@ -15,10 +15,11 @@ type Message struct {
 
 	Subject     string
 	Text        string
-	Attachments []Attachments
+	HTML        string
+	Attachments []Attachment
 }
 
-type Attachments struct {
+type Attachment struct {
 	Filename string
 	Body     []byte
 }

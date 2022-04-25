@@ -10,7 +10,7 @@ import (
 	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
-func ParseTime(ts string) time.Time {
+func parseTime(ts string) time.Time {
 	if ts == "" {
 		return time.Time{}
 	}
@@ -26,9 +26,9 @@ func ParseTime(ts string) time.Time {
 	return time.Time{}
 }
 
-// ParseEncodedString parses the string with form like "=?gb18030?B?...", where ... is usually the regular Base64 code
+// parseEncodedString parses the string with form like "=?gb18030?B?...", where ... is usually the regular Base64 code
 // while the charset is in the head.
-func ParseEncodedString(es string) (string, error) {
+func parseEncodedString(es string) (string, error) {
 	var err error
 	re := regexp.MustCompile(`^=\?(.*?)\?(.*?)\?(.*)\?=$`)
 	res := re.FindAllStringSubmatch(es, -1)
@@ -64,11 +64,11 @@ var chsetMap = map[string]encoding.Encoding{
 	"gbk":     simplifiedchinese.GBK,
 }
 
-// RemoveOutterQuotation removes the outside quotation of s. For example:
+// removeOutterQuotation removes the outside quotation of s. For example:
 // 1.  s == `"aaaa"` returns `aaaa`.
 // 2.  s == `"aaa` returns `aaa`.
 // 3.  s == `aaa` returns `aaa`
-func RemoveOutterQuotation(s string) string {
+func removeOutterQuotation(s string) string {
 	slen := len(s)
 	lind, rind := 0, slen-1
 	if s[lind] == 0x22 {
